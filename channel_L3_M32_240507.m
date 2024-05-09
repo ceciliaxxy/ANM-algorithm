@@ -2,15 +2,14 @@ clear all
 %clc
 load location_L3_240507.mat
 
-Num_ante=32; %%receive antenna at the RX
+Num_ante=32; %% number of receiving antenna at the RX
 Num_Loc=1;
-N_symbo=64;
-Num_symb=64;
-N_fft=64;           
-Space_pilot=4;       
-N_pilot=N_fft/Space_pilot;    
-N_sc=N_fft-N_pilot; 
-M=4; 
+Num_symb=64; %% number of symbols
+N_fft=64;    %%  number of subcarriers         
+Space_pilot=4;  %% pilot spacing    
+N_pilot=N_fft/Space_pilot; %%number of polits   
+N_sc=N_fft-N_pilot;        %%number of data subcarriers 
+
  
  for index_Loc=1:Num_Loc
 
@@ -27,7 +26,7 @@ M=4;
         h(index_BD,index_Loc)=sqrt(PL_TX2BD(index_BD,index_Loc)); %%L*1
     end
     channel_gain(index_Loc)=sum((sqrt(PL_BD2RX(:,index_Loc)).*sqrt(PL_TX2BD(:,index_Loc))).^2); 
-    noise(:,:,:,index_Loc)=randn(N_symbo,Num_symb,Num_ante)+1i*randn(N_symbo,Num_symb,Num_ante);
+    noise(:,:,:,index_Loc)=randn(N_fft,Num_symb,Num_ante)+1i*randn(N_fft,Num_symb,Num_ante);
  end
 
         sin_theta_TX2RX=0;
@@ -35,6 +34,4 @@ M=4;
         af=exp(1i*2*pi*1/2*sin_theta_TX2RX*[0:1:Num_ante-1].');
         f=sqrt(PL_TX2RX)*af;
       
- c_data=randi([0 1],Num_symb-1,L);
- data=randi([0 1],1,log2(M)*N_sc*Num_symb); 
  save channel_L3_M32_240507.mat
