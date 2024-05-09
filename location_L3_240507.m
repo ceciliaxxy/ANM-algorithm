@@ -10,23 +10,17 @@ Num_loc=1;
 Num_ante=64;
 while index_Loc<=Num_loc
     index_Loc
-    x_test(1)=3; 
-    y_test(1)=4;
-    x_test(2)=10; 
-    y_test(2)=11;
-    x_test(3)=x_test(2)+1/Num_pil/Dp/deltaf*c/8; 
-    y_test(3)=y_test(2)+1/Num_pil/Dp/deltaf*c/8;
-    Dis_TX2BD_test=sqrt(x_test.^2+y_test.^2);
-    Dis_BD2RX_test=sqrt((x_test-20).^2+y_test.^2);
-    Dis_TX2BD2RX_test=Dis_TX2BD_test+Dis_BD2RX_test;
+    x(1,index_Loc)=3; 
+    y(1,index_Loc)=4;
+    x(2,index_Loc)=10; 
+    y(2,index_Loc)=11;
+    x(3,index_Loc)=x(2,index_Loc)+1/Num_pil/Dp/deltaf*c/8; 
+    y(3,index_Loc)=y(2,index_Loc)+1/Num_pil/Dp/deltaf*c/8;
+    Dis_TX2BD(:,index_Loc)=sqrt(x(:,index_Loc).^2+y(:,index_Loc).^2);
+    Dis_BD2RX(:,index_Loc)=sqrt((x(1,index_Loc)-20).^2+y(:,index_Loc).^2);
+    Dis_TX2BD2RX(:,index_Loc)=Dis_TX2BD(:,index_Loc)+Dis_BD2RX(:,index_Loc);
   
-    sin_theta_test=abs(y_test)./sqrt((x_test-20).^2+y_test.^2);
-
-    x(:,index_Loc)=x_test;
-    y(:,index_Loc)=y_test;
-    Dis_TX2BD(:,index_Loc)=Dis_TX2BD_test;
-    Dis_BD2RX(:,index_Loc)=Dis_BD2RX_test;
-    sin_theta(:,index_Loc)=sin_theta_test;
+    sin_theta(:,index_Loc)=abs(y(:,index_Loc))./sqrt((x(:,index_Loc)-20).^2+y(:,index_Loc).^2);
     index_Loc=index_Loc+1;
 
 end
